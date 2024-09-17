@@ -1,0 +1,47 @@
+*Sekrit is considering a new career, but is keeping it sekrit! There is a flag double-hidden somewhere at http://sekritskwerl.com/more_sekrits.*
+
+We are given a URL of a web-page to examine (http://sekritskwerl.com/more_sekrits) 
+
+The URL takes us to the homepage:
+![](/assets/Pasted image 20240106145957.png)
+The other pages are as follows:
+![[Pasted image 20240106150058.png]]![[Pasted image 20240106150114.png]]
+First attempt at finding the flag was checking for any hidden elements within the embedded images, those images being as follows:
+![[RangerUpSekrit.gif]]
+
+
+![[secret_squirrel.jpeg]]
+
+![[squirrel-under-construction.jpg]]
+[Reference for image forensics](https://scribe.bus-hit.me/beginners-ctf-guide-finding-hidden-data-in-images-e3be9e34ae0d)
+Examining All three images with basic commands reveals nothing of value, so most likely the flag is not contained within any of these images.
+
+Next thing to check is the page source of each web-page(using Ctrl+U), which gives us the following snippets of HTML code (Note: There is other lines of text within the page source but upon examination of all of them, they do not seem to offer anything of value)
+
+**'Main' Page Source Content:**
+![[Pasted image 20240106151419.png]]
+
+**'More Sekrits!' Page Source Content:** 
+![[Pasted image 20240106151445.png]]
+
+**'About Us' Page Source Content:**
+![[Pasted image 20240106151522.png]]
+
+The first thing one would notice would be the blatant flag being shown in the 'About Us' source within an HTML comment, that flag being '**flag{sometimesFlagsAreInHTMLComments}**' but upon trying to submit it, it is not accepted, so this is not the flag we are looking for. As of now, 'About Us' does not seem to contain anything else of value.
+
+So for now lets try examining the 'Main' page source. This has 2 things of interest that we can examine. They can be found in line 226 and 237. 226 shows a message hidden within the HTML code reading "CouldThisBeTheSecretMessage?". Once again, attempting to submit this alone as the flag is not accepted, so this is also not the flag we are looking for. 237 shows a comment in HTML that reads as follows "<!-- Secret message after the </body> tag: squiddlydiddly -->". We try with 'squiddlydiddly' by itself, still not luck. However, we can take away that some easier flags involving web exploitation may be hidden HTML comments. But, so far still no flag after analyzing 2 of the 3 available pages.
+
+Finally, let's examine the 'More Sekrits!' page source. Upon first glance, there's nothing here of value to us, except a single line on 229, which contains "<!-- <img src="AlbumCover.png" width=500pts">	-->" This shows us there is another image for us to examine that we can only access by creating the following URL link "http://sekritskwerl.com/more_sekrits/AlbumCover.png", which gives us a new image:
+![[AlbumCover.png]]
+Upon research this turns out to be an actual album you can find on [YouTube](https://www.youtube.com/playlist?list=OLAK5uy_lp78l4nRYPRSLtTwCNUEombtzsaJvUrnQ) but the actual music doesn't matter, when you look at the album cover on the video, you can see the one we get and the original are different, mainly on the top right border of the circle we see a string of morse code, determined from the various amounts of '.' and '-'. The orignal code and it's translation are as follows:
+
+--. .-. . .- - . ... - - .... .. - ... ...- --- .-.. ..- -- . .----
+GREATESTHITSVOLUME1
+
+We try our latest string, still no success. Not sure where to go from here.
+
+Summary 1/6/24:
+'flag in About Us' source '**flag{sometimesFlagsAreInHTMLComments}**' - Not flag we are looking for
+Flags can be hidden within HTML comments
+
+

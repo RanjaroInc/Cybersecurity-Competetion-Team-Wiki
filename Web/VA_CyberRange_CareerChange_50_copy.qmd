@@ -1,0 +1,29 @@
+---
+title: "VA CyberRange-Career Change"
+format:
+  html:
+    embed-resources: true
+    html-math-method: katex
+    theme: spacelab
+    toc: true
+---
+
+## Career Change 
+
+*Challenge Description: Sekrit is considering a new career, but is keeping it sekrit! There is a flag double-hidden somewhere at [sekrits](http://sekritskwerl.com/more_sekrits).*
+
+We are given a URL of a web-page to examine (http://sekritskwerl.com/more_sekrits)   
+
+The URL takes us to the homepage:
+![](/assets/20240106145957.webp)
+The other pages are as follows:
+![]Pasted image 20240106150058.png  ![[Pasted image 20240106150114.png]]
+First attempt at finding the flag was checking for any hidden elements within the embedded images, those images being as follows:
+![[RangerUpSekrit.gif]]
+
+
+![[secret_squirrel.jpeg]]
+
+![[squirrel-under-construction.jpg]]
+[Reference for image forensics](https://scribe.bus-hit.me/beginners-ctf-guide-finding-hidden-data-in-images-e3be9e34ae0d)
+Examining All three images with basic commands reveals nothing of value, so most likely the flag is not contained within any of these images
